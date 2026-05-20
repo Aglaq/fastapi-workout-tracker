@@ -22,6 +22,24 @@ def show_workouts():
     rows = cursor.fetchall()
     return rows
 
+@app.get("/workouts/today")
+def show_workouts_today():
+
+    today = datetime.today().strftime("%d.%m.%Y")
+    cursor.execute("SELECT * FROM workouts WHERE date=?", (today,))
+
+    rows = cursor.fetchall()
+    return rows
+
+@app.get("/workouts/yesterday")
+def show_workouts_yesterdayday():
+
+    yesterday = (datetime.today() - timedelta(days = 1)).strftime("%d.%m.%Y")
+    cursor.execute("SELECT * FROM workouts WHERE date=?", (yesterday,))
+
+    rows = cursor.fetchall()
+    return rows
+
 @app.post("/workouts")
 def add_workout(workout: Workout):
 
@@ -43,27 +61,25 @@ def add_workout(workout: Workout):
 
     return {"message": "Workout added"}
 
-# @app.get("/workouts/today")
-# def show_workouts_today():
+@app.put("/workouts/{id}")
+def update_workout(id: int):
 
-#     today = datetime.today().strftime("%d.%m.%Y")
-#     cursor.execute("SELECT * FROM workouts WHERE")
+    cursor.execute("UPDATE workouts SET )
+    connection.commit()
 
-#     rows = cursor.fetchall()
-#     return rows
+    if cursor.rowcount == 0:
+        return {"error": "Workout not found"}
+    
+    return {"message": f"Workout {id} deleted"}
 
-# @app.get("/workouts/yesterday")
-# def show_workouts_yesterdayday():
-#     yesterdays_workout = []
+@app.delete("/workouts/{id}")
+def delete_workout(id: int):
 
-#     yesterday = (datetime.today() - timedelta(days = 1)).strftime("%d.%m.%Y")
+    cursor.execute("DELETE FROM workouts WHERE id = ?", (id,))
+    connection.commit()
 
-#     for workout_id in workout_database:
-#         if workout_id["date"] == yesterday:
-#             yesterdays_workout.append(workout_id)
+    if cursor.rowcount == 0:
+        return {"error": "Workout not found"}
+    
+    return {"message": f"Workout {id} deleted"}
 
-#     return yesterdays_workout
-
-# @app.delete("/workouts/{id}")
-# def delete_workout():
-#     return
