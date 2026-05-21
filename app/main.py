@@ -61,16 +61,16 @@ def add_workout(workout: Workout):
 
     return {"message": "Workout added"}
 
-@app.put("/workouts/{id}")
-def update_workout(id: int):
+# @app.put("/workouts/{id}")
+# def update_workout(id: int):
 
-    cursor.execute("UPDATE workouts SET )
-    connection.commit()
+#     cursor.execute("UPDATE workouts SET )
+#     connection.commit()
 
-    if cursor.rowcount == 0:
-        return {"error": "Workout not found"}
+#     if cursor.rowcount == 0:
+#         return {"error": "Workout not found"}
     
-    return {"message": f"Workout {id} deleted"}
+#     return {"message": f"Workout {id} deleted"}
 
 @app.delete("/workouts/{id}")
 def delete_workout(id: int):
